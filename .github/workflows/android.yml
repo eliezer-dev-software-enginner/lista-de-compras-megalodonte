@@ -1,0 +1,39 @@
+name: Build Android APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    env:
+      MEGALODONTE_ANDROID_HOME: framework/megalodonte-android
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: eliezer-dev-software-enginner/megalodonte-android
+          path: framework/megalodonte-android
+      - uses: actions/checkout@v4
+        with:
+          repository: eliezer-dev-software-enginner/megalodonte-core
+          path: framework/libraries/megalodonte-core
+      - uses: actions/checkout@v4
+        with:
+          repository: eliezer-dev-software-enginner/megalodonte-theme
+          path: framework/libraries/megalodonte-theme
+      - uses: actions/checkout@v4
+        with:
+          repository: eliezer-dev-software-enginner/megalodonte-reactivity-portable
+          path: framework/libraries/megalodonte-reactivity-portable
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: android-actions/setup-android@v3
+      - run: sdkmanager "platforms;android-35" "build-tools;36.0.0"
+      - run: ./gradlew :app:assembleDebug :app:lintDebug :app:check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-debug-apk
+          path: app/build/outputs/apk/debug/*.apk

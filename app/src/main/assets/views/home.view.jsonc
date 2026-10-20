@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "id": "home",
+  "states": {
+    "item": {
+      "type": "string",
+      "initial": ""
+    },
+    "number": {
+      "type": "string",
+      "initial": ""
+    },
+    "items": {
+      "type": "string",
+      "initial": ""
+    },
+    "status": {
+      "type": "string",
+      "initial": ""
+    }
+  },
+  "view": {
+    "type": "Scroll",
+    "children": [
+      {
+        "type": "Column",
+        "props": {
+          "padding": 20,
+          "spacing": 12,
+          "fillWidth": true
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "text": "Lista de Compras"
+            },
+            "style": {
+              "fontSize": 28
+            }
+          },
+          {
+            "type": "Text",
+            "props": {
+              "text": "Organize o mercado sem perder nenhum item."
+            }
+          },
+          {
+            "type": "Input",
+            "props": {
+              "placeholder": "Novo item"
+            },
+            "bind": {
+              "value": "item"
+            }
+          },
+          {
+            "type": "Button",
+            "props": {
+              "text": "Adicionar item",
+              "action": "add",
+              "fillWidth": true
+            }
+          },
+          {
+            "type": "Input",
+            "props": {
+              "placeholder": "Número do item"
+            },
+            "bind": {
+              "value": "number"
+            }
+          },
+          {
+            "type": "Button",
+            "props": {
+              "text": "Marcar / desmarcar",
+              "action": "toggle",
+              "fillWidth": true
+            }
+          },
+          {
+            "type": "Button",
+            "props": {
+              "text": "Remover item",
+              "action": "remove",
+              "fillWidth": true
+            }
+          },
+          {
+            "type": "Text",
+            "bind": {
+              "text": "status"
+            }
+          },
+          {
+            "type": "Text",
+            "bind": {
+              "text": "items"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
