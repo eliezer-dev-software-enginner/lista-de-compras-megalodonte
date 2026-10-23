@@ -12,18 +12,41 @@ import org.json.JSONException;
 public final class MainActivity extends MegalodonteActivity {
     private JSONArray items;
     private AndroidJsoncScreen screen;
+    private boolean invalidSavedItems;
     @Override protected void main() {
         try (var stream = getAssets().open("views/home.view.jsonc")) {
             ThemeManager.setTheme(new DefaultTheme());
-            items = new JSONArray(getPreferences(0).getString("items", "[]"));
+            try {
+                items = new JSONArray(getPreferences(0).getString("items", "[]"));
+                for (int i = 0; i < items.length(); i++) {
+                    JSONObject item = items.getJSONObject(i);
+                    if (!(item.opt("name") instanceof String) || !(item.opt("done") instanceof Boolean)) {
+                        throw new JSONException("Invalid shopping item");
+                    }
+                }
+            } catch (JSONException error) {
+                invalidSavedItems = true;
+                items = new JSONArray();
+            }
             screen = new AndroidJsoncScreen(new String(stream.readAllBytes(), StandardCharsets.UTF_8));
             screen.onAction(this::act);
-            refresh("");
+            refresh(invalidSavedItems ? "Não foi possível ler a lista salva. Toque em Reiniciar lista para começar novamente." : "");
             MegalodonteApp.run(context -> context.useView(screen));
-        } catch (java.io.IOException | JSONException error) { throw new IllegalStateException(error); }
+        } catch (java.io.IOException error) { throw new IllegalStateException(error); }
     }
     private void act(String action) {
         try {
+        if (action.equals("recover")) {
+            if (!invalidSavedItems) { refresh("A lista já está disponível."); return; }
+            getPreferences(0).edit().putString("items", "[]").apply();
+            invalidSavedItems = false;
+            refresh("Lista reiniciada.");
+            return;
+        }
+        if (invalidSavedItems) {
+            refresh("Não foi possível ler a lista salva. Toque em Reiniciar lista para começar novamente.");
+            return;
+        }
         String message;
         switch (action) {
             case "add" -> {

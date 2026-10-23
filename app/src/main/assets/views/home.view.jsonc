@@ -94,6 +94,14 @@
             }
           },
           {
+            "type": "Button",
+            "props": {
+              "text": "Reiniciar lista",
+              "action": "recover",
+              "fillWidth": true
+            }
+          },
+          {
             "type": "Text",
             "bind": {
               "text": "items"
