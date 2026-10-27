@@ -1,28 +1,39 @@
 # Lista de Compras
 
-Megalodonte Android application using **jsonc** UI. The app targets Android 15 (API 35).
-Its screen uses only Megalodonte components; JSONC is rendered by the Android bridge.
-The [Android JSONC guide](https://github.com/eliezer-dev-software-enginner/megalodonte-android/blob/main/docs/JSONC_ANDROID.md)
-lists the supported component types, bindings and platform-specific properties.
+An Android shopping list sample built with Megalodonte and a JSONC interface. Add items, mark or unmark them by their displayed number, and remove them. The list is stored on the device with Android `SharedPreferences`.
 
-Install JDK 25 and Android SDK Platform 35. Clone `megalodonte-android`,
-`megalodonte-core`, `megalodonte-theme`, and `megalodonte-reactivity-portable`
-under this project's `framework/` directory, or set
-`MEGALODONTE_ANDROID_HOME` to the Android framework checkout. Then run:
+The screen is defined in [`app/src/main/assets/views/home.view.jsonc`](app/src/main/assets/views/home.view.jsonc) and rendered as native Android components by the Megalodonte bridge, without a WebView. The [Android JSONC guide](https://github.com/eliezer-dev-software-enginner/megalodonte-android/blob/main/docs/JSONC_ANDROID.md) describes supported components, bindings, and platform properties.
 
-```sh
-./gradlew :app:assembleDebug :app:lintDebug
+## Requirements
+
+- JDK 25 and Android SDK Platform 35. The project targets Android 15 (API 35) and has a minimum SDK of 35.
+- Checkouts of `megalodonte-android`, `megalodonte-core`, `megalodonte-theme`, and `megalodonte-reactivity-portable`. These are separate projects and are not included here.
+
+Place the checkouts in this layout relative to this repository:
+
+```text
+framework/
+├── megalodonte-android/
+└── libraries/
+    ├── megalodonte-core/
+    ├── megalodonte-theme/
+    └── megalodonte-reactivity-portable/
 ```
 
-The APK is `app/build/outputs/apk/debug/app-debug.apk`. Open this directory in
-Android Studio to run on an Android 15 device or emulator. If its editor shows
-an import or constructor error while Gradle builds successfully, use **Sync
-Project with Gradle Files** to refresh the local framework modules.
+By default, Gradle looks for `framework/` two directories above this repository. Alternatively, set `MEGALODONTE_ANDROID_HOME` to the `megalodonte-android` checkout; the three library checkouts must then be in a sibling `libraries/` directory. See [`settings.gradle.kts`](settings.gradle.kts) for the exact paths.
 
-## Example behavior
+## Build and run
 
-Add shopping items, mark them complete by number, and remove them. Items persist on the device with SharedPreferences.
+From the repository root, run:
 
-Enter an item and tap Add. To change or remove an item, enter its displayed number and tap the corresponding button.
+```sh
+./gradlew :app:assembleDebug :app:lintDebug :app:check
+```
 
-The project was generated with `megalodonte-cli --platform android --mode jsonc` and then completed as a functional sample. Run `./gradlew :app:assembleDebug :app:lintDebug :app:check` to validate it. The UI is native Android through Megalodonte; no WebView is used.
+The debug APK is written to `app/build/outputs/apk/debug/app-debug.apk`. Open the project in Android Studio to run it on an Android 15 device or emulator. If the editor reports an import or constructor error while Gradle builds successfully, use **Sync Project with Gradle Files** to refresh the local framework modules.
+
+## Use
+
+Enter an item in **Novo item** and tap **Adicionar item**. To mark or unmark an item, enter its displayed number in **Número do item** and tap **Marcar / desmarcar**. Use **Remover item** with the displayed number to delete it.
+
+This project was generated with `megalodonte-cli --platform android --mode jsonc` and then completed as a functional sample.
