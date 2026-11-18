@@ -7,7 +7,7 @@ The screen is defined in [`app/src/main/assets/views/home.view.jsonc`](app/src/m
 ## Requirements
 
 - JDK 17 and Android SDK Platform 35. The project targets Android 15 (API 35) and has a minimum SDK of 35.
-- Checkouts of `megalodonte-android`, `megalodonte-core`, `megalodonte-theme`, and `megalodonte-reactivity-portable`. These are separate projects and are not included here.
+- Checkouts of `megalodonte-android`, `megalodonte-core`, `megalodonte-theme`, and `megalodonte-reactivity`. These are separate projects and are not included here.
 
 Place the checkouts in this layout relative to this repository:
 
@@ -17,7 +17,7 @@ framework/
 └── libraries/
     ├── megalodonte-core/
     ├── megalodonte-theme/
-    └── megalodonte-reactivity-portable/
+    └── megalodonte-reactivity/
 ```
 
 By default, Gradle looks for `framework/` two directories above this repository. Alternatively, set `MEGALODONTE_ANDROID_HOME` to the `megalodonte-android` checkout; the three library checkouts must then be in a sibling `libraries/` directory. See [`settings.gradle.kts`](settings.gradle.kts) for the exact paths.

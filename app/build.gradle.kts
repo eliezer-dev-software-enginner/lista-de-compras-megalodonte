@@ -15,8 +15,8 @@ android {
     }
 }
 dependencies {
-    implementation(project(":framework-core"))
-    implementation(project(":android-bridge"))
+    implementation(project(":megalodonte-base-android"))
+    implementation(project(":megalodonte-bridge-android"))
     implementation("megalodonte:megalodonte-theme:1.0.0-beta")
 }
 val verifyAndroidDependencies = tasks.register("verifyAndroidDependencies") {
