@@ -6,7 +6,7 @@ The screen is defined in [`app/src/main/assets/views/home.view.jsonc`](app/src/m
 
 ## Requirements
 
-- JDK 25 and Android SDK Platform 35. The project targets Android 15 (API 35) and has a minimum SDK of 35.
+- JDK 17 and Android SDK Platform 35. The project targets Android 15 (API 35) and has a minimum SDK of 35.
 - Checkouts of `megalodonte-android`, `megalodonte-core`, `megalodonte-theme`, and `megalodonte-reactivity-portable`. These are separate projects and are not included here.
 
 Place the checkouts in this layout relative to this repository:
